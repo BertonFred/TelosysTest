@@ -1,0 +1,14 @@
+// Entity Brand
+// Examples : 
+// PSA : Peugeot, Citroen
+// General Motors : Opel, Chevrolet
+
+Brand 
+{
+  Code : string { @Id  @SizeMax(3) } ; // eg : "Pgt", "Ctr", etc
+  Name : string {  @NotEmpty @SizeMax(20) } ;  
+
+  // Foreign Key with associated link 
+  Company_oid : long { @FK("FK_BRAND_COMPANY", Company) } ; // explicit FK name
+  Company : Company { } ; 
+}

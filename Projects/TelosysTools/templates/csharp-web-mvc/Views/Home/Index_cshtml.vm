@@ -1,0 +1,24 @@
+$env.setLanguage('C#')
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";	
+}
+<div class="index">
+    <div class="container">
+        <div class="container">
+            <div class="panel-group">
+                <div class="panel panel-info">
+                    <div class="panel-heading"><h3><span class="glyphicon glyphicon-leaf"></span> Home</h3></div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            #foreach( $entity in $selectedEntities )
+                            <li class="list-group-item list-group-item-action">
+                                @Html.ActionLink("List all ${fn.uncapitalize($entity.name)}s", "List", "${entity.name}s")
+                            </li>
+                            #end
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

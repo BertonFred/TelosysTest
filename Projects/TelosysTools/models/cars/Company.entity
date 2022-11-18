@@ -1,0 +1,8 @@
+// Entity Company
+// Examples : Stellantis (PSA), Renault, Tata, etc
+
+Company 
+{
+  oid : long { @Id @Min(1) } ; 
+  name : string { @NotNull @NotEmpty @SizeMax(40) } ; // field example 
+}

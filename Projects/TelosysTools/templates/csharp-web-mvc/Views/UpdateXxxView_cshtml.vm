@@ -1,0 +1,55 @@
+#parse("include/init_var.vm")
+$env.setLanguage('C#')
+@model ${NAMESPACE}.ViewModels.Update${entity.name}ViewModel
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";	
+}
+<div class="container">
+    <div class="container">
+        @using (Html.BeginForm(actionName: "Update", controllerName: "${entity.name}s", method: FormMethod.Post, htmlAttributes: new { @class = "form-horizontal" }))
+        {
+            <div class="panel-group">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3>
+                            <span class="glyphicon glyphicon-leaf"></span>
+                            Update ${entity.name}
+                            <a href="@Url.Action("Create", "${entity.name}s")">
+                                <button type="button" class="btn btn-default pull-right">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </a>
+                            <a href="@Url.Action("List", "${entity.name}s")">
+                                <button type="button" class="btn btn-link pull-right">
+                                    List
+                                </button>
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        @Html.AntiForgeryToken()
+#foreach( $attribute in $entity.KeyAttributes )
+						<input type="hidden" name="${attribute.formattedName(0)}" value="@Model.${attribute.formattedName(0)}"/>
+#end
+						@Html.ValidationSummary("", new { @class = "text-danger" })
+#foreach( $attribute in $entity.nonKeyAttributes )
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.${attribute.formattedName(0)}, htmlAttributes: new { @class = "control-label col-sm-2" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.${attribute.formattedName(0)}, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.${attribute.formattedName(0)}, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+#end
+                    </div>
+                    <div class="panel-footer text-center">
+                        <a href="../../${entity.name}/">
+                            <button type="submit" value="Create" class="btn btn-success"><span class="glyphicon glyphicon-floppy-disk"></span> Update</button>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

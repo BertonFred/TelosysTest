@@ -1,0 +1,10 @@
+// Entity Driver
+
+Driver 
+{
+  oid : long { @Id @Min(1)} ;
+  FirstName : string { @SizeMax(40) } ;
+  LastName : string { @SizeMax(40) };
+  BirthDate : date { @Past } ;
+  Comment : string ; 
+}

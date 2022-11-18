@@ -1,0 +1,4 @@
+## --- Variable(s) initialization
+## 
+## "NAMESPACE" is supposed to be defined in project variables
+#set ( $NAMESPACE = $fn.get("NAMESPACE", "mynamespace" ) ) 

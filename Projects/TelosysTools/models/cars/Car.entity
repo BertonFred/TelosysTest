@@ -1,0 +1,17 @@
+// Entity Car
+
+Car 
+{
+  oid : long { @Id @Min(1)} ;
+  Name : string  { @SizeMax(40) } ; 
+  Year : short { @Min(1900) @Max(2020) } ;
+  Price : float { @Min(500) @Max(99999) };
+  
+  // Foreign Key "FK_CAR_BRAND" with associated link 
+  BrandCode : string { @FK("FK_CAR_BRAND", Brand) } ;
+  Brand : Brand { } ;
+
+  // Foreign Key with associated link 
+  Driver_oid : long { @FK(Driver) } ; // default FK name
+  Driver : Driver ;
+}
