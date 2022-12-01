@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace wsRestTodoList.Migrations
 {
+    // Creation de la bazse de données initiale :
+    // https://learn.microsoft.com/en-us/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-7.0
     /// <inheritdoc />
     public partial class InitialCreate : Migration
     {
