@@ -8,16 +8,24 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using wsRestTodoList.HealthCheck;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using CarModel.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+string path = Environment.CurrentDirectory;
+string DbPath = System.IO.Path.Join(path, "CarModel.db");
+
 // Ajouter un point de HealthChecks pour faciliter la surveillance de l'application par les OPS
 // ici on fait un appel àServiceOneCheck en passant la valeur de retour du healthCheck (pour faire simple)
-builder.Services.AddHealthChecks()
+builder.Services.AddDbContext<EntitiesDbContext>()
+//builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlite($"Data Source={DbPath}") )
+                .AddHealthChecks()
                 .AddTypeActivatedCheck<ServiceOneHealthCheck>("RestTodoListHealthCheckOne", args: new object[] { HealthStatus.Healthy })
                 .AddTypeActivatedCheck<ServiceOneHealthCheck>("RestTodoListHealthCheckTwo", args: new object[] { HealthStatus.Healthy })
                 .AddCheck("Lambda Check",() => HealthCheckResult.Healthy("Lambda Check."));
 // $$$ builder.Services.AddHealthChecksUI();
+
 
 // Add services to the container.
 // ajout du formateur newtonsoft pour la gestion de l'API PATCH
@@ -68,10 +76,11 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 // Dans l'exemple ici nous activons le service de docuemntation Swagger uniquement si l'environnement
 // d'execution est un environnement de developpement
-// Ce qui n'est pas toujours une bonne idée. Regulierment on active Swagger dans tous les environnement Dev ou pas.
+// Ce qui n'est pas toujours une bonne idée. RegulieMetadata.Conventionsrment on active Swagger dans tous les environnement Dev ou pas.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -81,6 +90,7 @@ if (app.Environment.IsDevelopment())
 // ajouter le point de HealthCheck pour la supervision application du SI.
 app.MapHealthChecks("/healthz");
 // $$$ app.UseHealthChecksUI();
+
 
 app.UseAuthorization();
 app.MapControllers();
