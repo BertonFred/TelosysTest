@@ -11,7 +11,8 @@ $env.setLanguage('C#')
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+
+using ${NAMESPACE}.Entities;
 
 namespace ${NAMESPACE}.Models
 {

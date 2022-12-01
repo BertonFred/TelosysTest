@@ -18,7 +18,7 @@ using CarModel.Entities;
 
 namespace ${NAMESPACE}.ViewModels
 {
-	public class Update${entity.name}ViewModel
+	public class ${entity.name}UpdateViewModel
 	{
 #foreach( $attribute in $entity.keyAttributes )
 		public ${attribute.formattedType(0)} ${attribute.formattedName(0)} { get; set; } 
@@ -45,12 +45,12 @@ namespace ${NAMESPACE}.ViewModels
 #end ## end foreach
 #end ## end foreach
 		
-		public Update${entity.name}ViewModel()
+		public ${entity.name}UpdateViewModel()
 		{
 
 		}
 		
-		public Update${entity.name}ViewModel(${entity.name} ${entity.name})
+		public ${entity.name}UpdateViewModel(${entity.name} ${entity.name})
 		{
 #foreach( $attribute in $entity.keyAttributes )
 			${attribute.formattedName(0)} =  ${entity.name}.${attribute.formattedName(0)};

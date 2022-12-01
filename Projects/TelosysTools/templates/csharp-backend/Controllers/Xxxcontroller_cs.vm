@@ -67,6 +67,7 @@ namespace ${NAMESPACE}.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)] 
 		public ActionResult<IEnumerable<${entity.name}>> Get${entity.name}s([FromQuery]int pageSize = 10,[FromQuery] int pageIndex = 0)
 		{
+            // FIND ALL with paging
 			var lstResult = _context.${entity.name}s
                                     .Skip(pageSize * pageIndex)
                                     .Take(pageSize)
@@ -91,6 +92,7 @@ namespace ${NAMESPACE}.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<${entity.name}> Get${entity.name}(${keyFields[0].formattedType(0)} ${keyFields[0].formattedName(0)})
         {
+            // READ
             ${entity.name}? ReadData = _context.${entity.name}s
                                                 .FirstOrDefault(item => item.${keyFields[0].formattedName(0)} == ${keyFields[0].formattedName(0)});
             if (ReadData == null) 
@@ -111,21 +113,22 @@ namespace ${NAMESPACE}.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<${entity.name}> Create${entity.name}([FromBody]${entity.name}CreateViewModel createVM)
         {
-				var ToCreate = new ${entity.name}();
+            // INSTANCE CREATE
+			var ToCreate = new ${entity.name}();
 
-				// KEYS
+			// KEYS
 #foreach( $attribute in $entity.keyAttributes )	  
 #if( ${fn.uncapitalize($attribute.formattedType(0))} == $string)
-				ToCreate.${attribute.formattedName(0)} = Guid.NewGuid().ToString();
+			ToCreate.${attribute.formattedName(0)} = Guid.NewGuid().ToString();
 #end
 #end
-				// DATAS
+			// DATAS
 #foreach( $attribute in $entity.nonKeyAttributes)
-				ToCreate.${attribute.name} = createVM.${attribute.name};
+			ToCreate.${attribute.name} = createVM.${attribute.name};
 #end
-				// SAVE
-				_context.${entity.name}s.Add( ToCreate );
-				_context.SaveChanges();
+			// SAVE
+			_context.${entity.name}s.Add( ToCreate );
+			_context.SaveChanges();
 
             return Ok(ToCreate);
         }
@@ -149,6 +152,7 @@ namespace ${NAMESPACE}.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)] 
         public ActionResult  Update${entity.name}(${keyFields[0].formattedType(0)} ${keyFields[0].formattedName(0)}, [FromBody]${entity.name}UpdateViewModel updateVM)
         {
+            // FIND ITEM TO UPDATE
 			${entity.name} ToUpdate${entity.name} = _context.${entity.name}s
                                                 .FirstOrDefault(x => x.${keyFields[0].formattedName(0)} == updateVM.${keyFields[0].formattedName(0)});
             if (ToUpdate${entity.name} == null)
@@ -164,6 +168,8 @@ namespace ${NAMESPACE}.Controllers
 #end
 			// SAVE
 			_context.SaveChanges();
+
+            return Ok();
         }
 
         /// <summary>
@@ -182,12 +188,15 @@ namespace ${NAMESPACE}.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult Delete${entity.name}(${keyFields[0].formattedType(0)} ${keyFields[0].formattedName(0)})
         {
+			// FIND ITEM to DELETE 
 			${entity.name}? ToDelete = _context.${entity.name}s
                                             .FirstOrDefault(x => x.${keyFields[0].formattedName(0)} == ${keyFields[0].formattedName(0)});
+			// DELETE 
             if (ToDelete == null)
                 return NotFound($"Non trouvé avec l'ID = {${keyFields[0].formattedName(0)}}");
-
 			_context.${entity.name}s.Remove(ToDelete);
+
+			// SAVE
 			_context.SaveChanges();
 
             return Ok();
