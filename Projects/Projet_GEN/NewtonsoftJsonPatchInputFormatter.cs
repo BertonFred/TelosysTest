@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Options;
 
-namespace wsRestTodoList;
-
 /// <summary>
 /// Help pour mettre en place le formatteur JSon Patch de newtownsoft
 /// car le formateur MS ne prend pas en charge JsonPatchDocument

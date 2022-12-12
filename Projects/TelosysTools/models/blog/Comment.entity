@@ -1,0 +1,11 @@
+// Entity Comment
+
+Comment
+{
+  oid : long { @Id @Min(1)} ;
+  comment : string  { @NotEmpty @SizeMax(40) } ; 
+
+  // Foreign Key with associated link 
+  Post_oid : long { @FK(Post) } ; // default FK name
+  Post : Post ;
+}

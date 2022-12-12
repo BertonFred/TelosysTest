@@ -69,7 +69,7 @@ builder.Services.AddSwaggerGen(c =>
             License = new OpenApiLicense { Name = "LGPL" }
         });
 
-        var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "wsRestTodoList.xml");
+        var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "wsRestTest.xml");
         c.IncludeXmlComments(filePath);
     }
 ) ;

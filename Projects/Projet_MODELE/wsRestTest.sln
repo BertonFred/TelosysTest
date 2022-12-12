@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32929.386
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wsRestTodoList", "wsRestTodoList.csproj", "{354CC825-3309-4FDA-B1C6-C64BF0434647}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wsRestTest", "wsRestTest.csproj", "{354CC825-3309-4FDA-B1C6-C64BF0434647}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
