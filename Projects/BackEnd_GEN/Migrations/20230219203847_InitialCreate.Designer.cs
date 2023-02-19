@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace wsRestTest.Migrations
 {
     [DbContext(typeof(EntitiesDbContext))]
-    [Migration("20230218174119_InitialCreate")]
+    [Migration("20230219203847_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

@@ -57,6 +57,7 @@ builder.Services.AddControllers(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 // check url Swagger : http://localhost:5279/swagger/index.html
+// get swagger file at : http://localhost:5279/swagger/v1/swagger.json
 builder.Services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1", new OpenApiInfo
