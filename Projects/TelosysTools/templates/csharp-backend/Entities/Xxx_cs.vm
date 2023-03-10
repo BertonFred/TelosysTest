@@ -30,7 +30,6 @@ namespace ${NAMESPACE}.Entities
 	{
 		//--- KEY ATTRIBUTE 
 #foreach( $attribute in $entity.keyAttributes )
-
 		[Key]
 #if( $entity.keyAttributesCount > 1 )
 		[Column(Order = $foreach.count)]
@@ -46,14 +45,21 @@ namespace ${NAMESPACE}.Entities
 #end ## end foreach
 
 		//--- DATA (NOT KEY and NOT LINK) ATTRIBUTES 
-
 #foreach( $attribute in $dataFields )
+#if ($attribute.isStringType() == true )
+#if ($attribute.isNotNull() == true)
 		public ${attribute.formattedType(0)} ${attribute.formattedName(0)} { get; set; } 
-#end
+#else
+		public ${attribute.formattedType(0)}? ${attribute.formattedName(0)} { get; set; } 
+#end ## end if
+#else	
+		public ${attribute.formattedType(0)} ${attribute.formattedName(0)} { get; set; } 
+#end ## end if
+#end ## end foreach
+
 
 		//--- LINKS ATTRIBUTES 
 #foreach ( $attribute in $linkFields )
-
 		[ForeignKey("${attribute.referencedEntityName}")]
 		public $attribute.type ${attribute.name} { get; set; }
 		public ${attribute.referencedEntityName} ${attribute.referencedEntityName} { get; set; }

@@ -16,8 +16,3 @@ dotnet ef migrations remove
 Creation ou mise a jour de la base a partir de l'assembly
 dotnet ef database update
 
-
-TEST du PROJETS
-dotnet run
-test : http://localhost:5279/healthz
-url : http://localhost:5279/swagger/index.html

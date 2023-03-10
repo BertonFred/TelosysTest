@@ -3,6 +3,6 @@
 Post 
 {
   oid : long { @Id @Min(1)} ;
-  Title : string  { @SizeMax(40) } ; 
+  Title : string  { @NotNull @SizeMax(40) } ; 
   Description : string  { @SizeMax(255) } ; 
 }
