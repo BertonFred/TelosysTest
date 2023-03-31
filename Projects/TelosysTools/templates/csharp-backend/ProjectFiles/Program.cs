@@ -14,12 +14,14 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 string path = Environment.CurrentDirectory;
-string DbPath = System.IO.Path.Join(path, "CarModel.db");
+string DbPath = System.IO.Path.Join(path, "${NAMESPACE}.db");
 
 // Ajouter un point de HealthChecks pour faciliter la surveillance de l'application par les OPS
 // ici on fait un appel ServiceOneCheck en passant la valeur de retour du healthCheck (pour faire simple)
-builder.Services.AddDbContext<EntitiesDbContext>()
-//builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlite($"Data Source={DbPath}") )
+// on passe aussi le context DB soit explicitement avec options, soit embarque dans le constructeur
+builder.Services
+//$$$.AddDbContext<EntitiesDbContext>()
+.AddDbContext<EntitiesDbContext>(options => options.UseSqlite($"Data Source={DbPath}") )
                 .AddHealthChecks()
                 .AddTypeActivatedCheck<ServiceOneHealthCheck>("RestTodoListHealthCheckOne", args: new object[] { HealthStatus.Healthy })
                 .AddTypeActivatedCheck<ServiceOneHealthCheck>("RestTodoListHealthCheckTwo", args: new object[] { HealthStatus.Healthy })
@@ -62,7 +64,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1", new OpenApiInfo
         {
-            Title = "TODO LIST API",
+            Title = "${NAMESPACE} LIST API",
             Version = "1.00",
             Contact = new OpenApiContact { Name = "Fred BERTON", Email = "frederic.berton@capgemini.com" },
             Description = "exemple d'API REST avec de la documentation",

@@ -18,8 +18,9 @@ string DbPath = System.IO.Path.Join(path, "CarModel.db");
 
 // Ajouter un point de HealthChecks pour faciliter la surveillance de l'application par les OPS
 // ici on fait un appel ServiceOneCheck en passant la valeur de retour du healthCheck (pour faire simple)
-builder.Services.AddDbContext<EntitiesDbContext>()
-//builder.Services.AddDbContext<EntitiesDbContext>(options => options.UseSqlite($"Data Source={DbPath}") )
+builder.Services
+//$$$.AddDbContext<EntitiesDbContext>()
+.AddDbContext<EntitiesDbContext>(options => options.UseSqlite($"Data Source={DbPath}") )
                 .AddHealthChecks()
                 .AddTypeActivatedCheck<ServiceOneHealthCheck>("RestTodoListHealthCheckOne", args: new object[] { HealthStatus.Healthy })
                 .AddTypeActivatedCheck<ServiceOneHealthCheck>("RestTodoListHealthCheckTwo", args: new object[] { HealthStatus.Healthy })

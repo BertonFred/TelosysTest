@@ -17,7 +17,7 @@ namespace wsRestTest.Migrations
                     oid = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false)
+                    Description = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,7 +30,7 @@ namespace wsRestTest.Migrations
                 {
                     oid = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    comment = table.Column<string>(type: "TEXT", nullable: false),
+                    comment = table.Column<string>(type: "TEXT", nullable: true),
                     Post_oid = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

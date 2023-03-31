@@ -45,11 +45,11 @@ namespace ${NAMESPACE}.Controllers
 		private EntitiesDbContext _context { get; set; }		
 
         /// <summary>
-        /// Constructeur
+        /// Constructeur avec injection
         /// </summary>
-		public ${entity.name}Controller()
+		public ${entity.name}Controller(EntitiesDbContext context)
 		{
-			_context = new EntitiesDbContext();
+			_context = context;
 		}
 
         /// <summary>

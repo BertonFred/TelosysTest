@@ -33,9 +33,9 @@ namespace CarModel.Controllers
         /// <summary>
         /// Constructeur
         /// </summary>
-		public PostController()
+		public PostController(EntitiesDbContext context)
 		{
-			_context = new EntitiesDbContext();
+			_context = context;
 		}
 
         /// <summary>

@@ -23,8 +23,13 @@ namespace CarModel.Models
         	DbPath = System.IO.Path.Join(path, "CarModel.db");
 		}
 
-		// Database path
-    	public string DbPath { get; }
+        public EntitiesDbContext(DbContextOptions<EntitiesDbContext> options)
+            : base(options)
+        {
+        }
+
+        // Database path
+        public string DbPath { get; }
 
 		public DbSet<Comment> Comments { get; set; }
 		public DbSet<Post> Posts { get; set; }
@@ -50,8 +55,14 @@ namespace CarModel.Models
         //     and examples.
         protected  override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-			// $$$ optionsBuilder.UseSqlServer(Server=(localdb)\mssqllocaldb;Database=CarModel;Trusted_Connection=True");
-        	optionsBuilder.UseSqlite($"Data Source={DbPath}");
+            if (optionsBuilder.IsConfigured == false)
+            {
+                // for SQL Server
+                // $$$ optionsBuilder.UseSqlServer(Server=(localdb)\mssqllocaldb;Database=CarModel;Trusted_Connection=True");
+                
+                // For SQLite
+                optionsBuilder.UseSqlite($"Data Source={DbPath}");
+            }
         }
 
         //

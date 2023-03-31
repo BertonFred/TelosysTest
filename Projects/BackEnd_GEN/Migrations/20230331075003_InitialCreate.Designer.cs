@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace wsRestTest.Migrations
 {
     [DbContext(typeof(EntitiesDbContext))]
-    [Migration("20230219203847_InitialCreate")]
+    [Migration("20230331075003_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -29,7 +29,6 @@ namespace wsRestTest.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("comment")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("oid");
@@ -46,7 +45,6 @@ namespace wsRestTest.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")

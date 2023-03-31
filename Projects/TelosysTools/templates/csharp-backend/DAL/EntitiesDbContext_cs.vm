@@ -20,9 +20,15 @@ namespace ${NAMESPACE}.Models
 	{
 		public EntitiesDbContext()
 		{
-        	var path = Environment.CurrentDirectory;
-        	DbPath = System.IO.Path.Join(path, "${NAMESPACE}.db");
+                        var path = Environment.CurrentDirectory;
+                        DbPath = System.IO.Path.Join(path, "${NAMESPACE}.db");
 		}
+
+                public EntitiesDbContext(DbContextOptions<EntitiesDbContext> options)
+                        : base(options)
+                {
+                }
+
 
 		// Database path
     	public string DbPath { get; }
@@ -52,8 +58,14 @@ namespace ${NAMESPACE}.Models
         //     and examples.
         protected  override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-			// $$$ optionsBuilder.UseSqlServer(Server=(localdb)\mssqllocaldb;Database=${NAMESPACE};Trusted_Connection=True");
-        	optionsBuilder.UseSqlite($"Data Source={DbPath}");
+            if (optionsBuilder.IsConfigured == false)
+            {
+                // for SQL Server Local DB
+                // $$$ optionsBuilder.UseSqlServer("Server=(localdb)\mssqllocaldb;Database=${NAMESPACE};Trusted_Connection=True");
+                
+                // For SQLite
+                optionsBuilder.UseSqlite($"Data Source={DbPath}");
+            }
         }
 
         //
